@@ -1,0 +1,64 @@
+
+<!doctype html><html lang='en'><head>
+<meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>Checkout • Floressence</title>
+<link rel='stylesheet' href='styles.css'>
+<script defer src='data.js'></script>
+<script defer src='app.js'></script>
+</head>
+<body>
+<header>
+  <nav class='nav'>
+    <img src='assets/logo.jpg' alt='Floressence logo'>
+    <a href='index.html'>Home</a>
+    <a href='shop.html'>Shop</a>
+    <a href='checkout.html' class='cart-icon'>Cart <span class='cart-count'>0</span></a>
+  </nav>
+</header>
+
+<div class='container'>
+  <h2>Checkout</h2>
+  <table class='table'>
+    <thead><tr><th>Item</th><th>Qty</th><th>Price</th><th>Total</th><th></th></tr></thead>
+    <tbody id='cart-body'></tbody>
+  </table>
+  <div class='total'>
+    <div>Subtotal: <span id='subtotal'>R0</span></div>
+    <div>Shipping: <span id='shipping'>R0</span></div>
+    <div>Grand Total: <span id='grand'>R0</span></div>
+  </div>
+
+  <h3>Delivery Details</h3>
+  <div style='display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px'>
+    <input placeholder='Full name'>
+    <input placeholder='Email'>
+    <input placeholder='Phone'>
+    <input placeholder='Address line 1'>
+    <input placeholder='City'>
+    <input placeholder='Postal code'>
+  </div>
+
+  <h3 style='margin-top:20px'>Pay with PayPal (Sandbox)</h3>
+  <div id='paypal-button-container'></div>
+  <p class='small'>This demo uses PayPal sandbox. Replace <code>client-id=sb</code> with your live client ID to accept real payments.</p>
+
+</div>
+
+<footer>© Floressence</footer>
+
+<script src="https://www.paypal.com/sdk/js?client-id=sb&currency=ZAR"></script>
+<script>
+  function makeOrder(){
+    const totals = window.floCartTotals();
+    return { purchase_units: [{ amount: { currency_code: 'ZAR', value: String(totals.total) } }] };
+  }
+  function clearCart(){
+    localStorage.removeItem('flo_cart');
+    window.location.href = 'thank-you.html';
+  }
+  paypal.Buttons({
+    createOrder: (data, actions)=> actions.order.create(makeOrder()),
+    onApprove: (data, actions)=> actions.order.capture().then(function(details){ clearCart(); }),
+  }).render('#paypal-button-container');
+</script>
+</body></html>

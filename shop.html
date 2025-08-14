@@ -1,0 +1,34 @@
+
+<!doctype html><html lang='en'><head>
+<meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>Shop • Floressence</title>
+<link rel='stylesheet' href='styles.css'>
+<script defer src='data.js'></script>
+<script defer src='app.js'></script>
+</head>
+<body>
+<header>
+  <nav class='nav'>
+    <img src='assets/logo.jpg' alt='Floressence logo'>
+    <a href='index.html'>Home</a>
+    <a href='shop.html'>Shop</a>
+    <a href='checkout.html' class='cart-icon'>Cart <span class='cart-count'>0</span></a>
+  </nav>
+</header>
+
+<div class='container'>
+  <div class='bar'>
+    <select id='cat' class='btn secondary'>
+      <option>All</option>
+      <option>Individual Items</option>
+      <option>Local Services</option>
+      <option>Bento Cakes</option>
+      <option>Hampers</option>
+    </select>
+    <input id='search' type='search' placeholder='Search products…'>
+  </div>
+  <div id='product-grid' class='grid'></div>
+</div>
+
+<footer>© Floressence</footer>
+</body></html>
